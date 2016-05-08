@@ -19,7 +19,7 @@ var middleware = {
 app.use(middleware.logger);
 
 app.get('/home', middleware.requireAuthentication, function(req, res) {
-    res.send('hello express');
+    res.send('hello express!!');
 
 })
 
