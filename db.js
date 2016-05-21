@@ -1,11 +1,30 @@
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize(undefined, undefined, undefined, {
-	'dialect': 'sqlite',
-	'storage': __dirname + '/data/dev-todo-api.sqlite'
-});
+//Including dependency
+var Sequelize = require("sequelize");
+
+var env = process.env.NODE_ENV || 'development';
+
+var sequelize;
+
+if (env === 'production') {
+    sequelize = new Sequelize(process.env.DATABASE_URL, {
+        dialect: 'postgres'
+    });
+} else {
+    sequelize = new Sequelize('connect', 'root', 'password', {
+        host: "localhost",
+        port: 3306,
+        dialect: 'mysql'
+    });
+}
+
+
+//Setting up the config
+
+
+
 var db = {};
 
-db.todo = sequelize.import(__dirname + '/models/todo.js');
+db.user = sequelize.import(__dirname + '/models/user.js');
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

@@ -11,8 +11,11 @@
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
+    "mysql": "^2.10.2",
+    "pg": "^4.5.5",
+    "pg-hstore": "^2.3.2",
     "sequelize": "^3.5.1",
-    "sqlite3": "^3.0.10",
+    "sqlite3": "^3.1.4",
     "underscore": "^1.8.3"
   }
 }
