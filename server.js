@@ -37,6 +37,19 @@ app.get('/users', function(req, res) {
     });
 });
 
+
+// POST /todos
+app.post('/users', function(req, res) {
+    var body = _.pick(req.body, 'firstName', 'lastName', 'mdn', 'birthDay', 'gender', 'email', 'street', 'houseNum', 'city', 'state', 'country', 'zip');
+    console.log(body);
+
+    db.user.create(body).then(function(user) {
+        res.json(user.toJSON());
+    }, function(e) {
+        res.status(400).json(e);
+    });
+});
+
 // GET /todos/:id
 app.get('/users/:id', function(req, res) {
     var userId = parseInt(req.params.id, 10);
@@ -52,33 +65,21 @@ app.get('/users/:id', function(req, res) {
     });
 });
 
-// POST /todos
-app.post('/users', function(req, res) {
-    var body = _.pick(req.body, 'firstName', 'lastName', 'mdn', 'birthDay', 'gender', 'email', 'street', 'houseNum', 'city', 'state', 'country', 'zip');
-    console.log(body);
-
-    db.user.create(body).then(function(user) {
-        res.json(user.toJSON());
-    }, function(e) {
-        res.status(400).json(e);
-    });
-});
-
 // DELETE /todos/:id
 app.delete('/users/:id', function(req, res) {
     var userId = parseInt(req.params.id, 10);
-    var matchedUser = _.findWhere(todos, {
-        id: todoId
+
+    db.user.findById(userId).then(function(user) {
+        if (!!user) {
+            user.destroy();
+            res.json(user.toJSON());
+        } else {
+            res.status(404).send();
+        }
+    }, function(e) {
+        res.status(500).send();
     });
 
-    if (!matchedTodo) {
-        res.status(404).json({
-            "error": "no todo found with that id"
-        });
-    } else {
-        todos = _.without(todos, matchedTodo);
-        res.json(matchedTodo);
-    }
 });
 
 // PUT /todos/:id

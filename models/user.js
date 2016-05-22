@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
         },
         birthDay: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allowNull: false,
         },
         gender: {
@@ -69,7 +69,7 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         zip: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: true,
         },
     });
